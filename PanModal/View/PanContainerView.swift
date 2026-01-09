@@ -19,6 +19,9 @@ class PanContainerView: UIView {
     init(presentedView: UIView, frame: CGRect) {
         super.init(frame: frame)
         addSubview(presentedView)
+        // Set initial frame to ensure proper rendering in newer iOS versions/Xcode 26
+        // Without an initial frame, views may not render properly even if frame is set later
+        presentedView.frame = CGRect(origin: .zero, size: frame.size)
     }
 
     @available(*, unavailable)

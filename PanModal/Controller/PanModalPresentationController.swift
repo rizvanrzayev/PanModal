@@ -344,6 +344,11 @@ private extension PanModalPresentationController {
          & PanModalPresentable, the presented view should be added to the container view
          in the presentation animator instead of here
          */
+        // Ensure panContainerView has correct frame before adding to container
+        // This is critical for proper rendering in newer iOS versions/Xcode 26
+        if panContainerView.frame == .zero || panContainerView.frame.size != containerView.frame.size {
+            panContainerView.frame = containerView.frame
+        }
         containerView.addSubview(presentedView)
         containerView.addGestureRecognizer(panGestureRecognizer)
 
